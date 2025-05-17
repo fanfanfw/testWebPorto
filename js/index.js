@@ -16,12 +16,14 @@ function toggleNavbar(){
 }
 
 const navToggler = document.querySelector(".nav-toggler");
-navToggler.addEventListener("click", () => {
-    hideSection();
-    toggleNavbar();
-    document.body.classList.toggle("hide=-scrolling");
+if (navToggler) {
+    navToggler.addEventListener("click", () => {
+        hideSection();
+        toggleNavbar();
+        document.body.classList.toggle("hide-scrolling"); // koreksi typo di sini, lihat bawah
+    });
+}
 
-});
 
 
 document.addEventListener("click", (e) =>{
@@ -46,19 +48,19 @@ document.addEventListener("click", (e) =>{
 })
 
 
-const tabsContainer = document.querySelector(".about-tabs"),
-    aboutSection = document.querySelector(".about-section");
+window.addEventListener("DOMContentLoaded", () => {
+    const tabsContainer = document.querySelector(".about-tabs"),
+        aboutSection = document.querySelector(".about-section");
 
-tabsContainer.addEventListener("click", (e) =>{
-    if(e.target.classList.contains("tab-item") && !e.target.classList.contains("active")){
-        tabsContainer.querySelector(".active").classList.remove("active");
-        e.target.classList.add("active");
-        const target = e.target.getAttribute("data-target");
-        aboutSection.querySelector(".tab-content.active").classList.remove("active");
-        aboutSection.querySelector(target).classList.add("active");
-        // console.log(target);
-    }
-    // console.log(e.target);
+    tabsContainer.addEventListener("click", (e) =>{
+        if(e.target.classList.contains("tab-item") && !e.target.classList.contains("active")){
+            tabsContainer.querySelector(".active").classList.remove("active");
+            e.target.classList.add("active");
+            const target = e.target.getAttribute("data-target");
+            aboutSection.querySelector(".tab-content.active").classList.remove("active");
+            aboutSection.querySelector(target).classList.add("active");
+        }
+    });
 });
 
 function togglePortfolioPopup(){
@@ -87,6 +89,8 @@ document.addEventListener("click", (e) =>{
     }
 });
 
-document.querySelector(".pp-close").addEventListener("click", togglePortfolioPopup);
-
+const ppClose = document.querySelector(".pp-close");
+if (ppClose) {
+    ppClose.addEventListener("click", togglePortfolioPopup);
+}
 
