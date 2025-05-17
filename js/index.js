@@ -94,3 +94,33 @@ if (ppClose) {
     ppClose.addEventListener("click", togglePortfolioPopup);
 }
 
+const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://formspree.io/f/mgvkdpnq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        status.innerText = "Pesan berhasil dikirim!";
+        status.style.color = "green";
+        form.reset(); // Kosongkan form
+      } else {
+        status.innerText = "Gagal mengirim pesan. Silakan coba lagi.";
+        status.style.color = "red";
+      }
+    } catch (error) {
+      status.innerText = "Terjadi kesalahan jaringan.";
+      status.style.color = "red";
+    }
+  });
